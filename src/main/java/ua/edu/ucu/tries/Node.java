@@ -11,9 +11,6 @@ public class Node {
     public Node[] next = new Node[R];
 
 
-
-
-
     @Override
     public String toString() {
         return "Node{" +

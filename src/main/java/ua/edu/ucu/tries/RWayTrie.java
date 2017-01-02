@@ -17,7 +17,7 @@ public class RWayTrie  implements Trie {
     @Override
     public void add(Tuple t) {
         /**
-         * public method which call real method add from the root.
+         * Public method which call real method add from the root.
          */
         root = add(root, t.term, t.weight, 0);
     }
@@ -26,6 +26,7 @@ public class RWayTrie  implements Trie {
          * If we do not have node which corresponds to the element we create new instance of class Node.
          * When length of key is equal to the d (which means that we iterate as many times as number of value),
          * it means that we put all word, so we increase value and mark them corresponding node.
+         * Also we increase. We need it to define a size.
          * When length of key isn't equal to the d we take letter of key which corresponds to d (for example
          * if we have word 'Drown' and d = 1, we take letter r) and recursively call method add with this letter.
          */
@@ -33,6 +34,7 @@ public class RWayTrie  implements Trie {
         if (x == null) x = new Node();
         if (d == key.length()) {
             if (x.val == null){
+                n ++;
                 val ++;
                 x.val = val;
                 return x;
@@ -100,10 +102,18 @@ public class RWayTrie  implements Trie {
         return wordsList;
     }
 
+
+    @Override
+    public Iterable<String> wordsWithPrefix(String s) {
+        ArrayList<String> wordsList = new ArrayList<String>();
+
+        collect(get(root, s, 0), s, wordsList);
+        return wordsList;
+    }
     private void collect(Node x, String tmpWord, ArrayList<String> resList) {
         if (x != null) {
             for (int i = 0; i < Node.R; i++) {
-                collect(x.next[i], tmpWord + (char) (i), resList);
+                collect(x.next[i], tmpWord + (char)i, resList);
                 if (x.val != null && x.val > 0){
                     resList.add(tmpWord);
                     break;
@@ -114,13 +124,8 @@ public class RWayTrie  implements Trie {
 
 
     @Override
-    public Iterable<String> wordsWithPrefix(String s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return n;
     }
 
 

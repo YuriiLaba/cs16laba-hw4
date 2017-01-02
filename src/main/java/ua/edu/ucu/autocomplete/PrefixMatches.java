@@ -1,6 +1,7 @@
 package ua.edu.ucu.autocomplete;
 
 import ua.edu.ucu.tries.Trie;
+import ua.edu.ucu.tries.Tuple;
 
 /**
  *
@@ -9,14 +10,23 @@ import ua.edu.ucu.tries.Trie;
 public class PrefixMatches {
 
     private Trie trie;
-
-
     public PrefixMatches(Trie trie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.trie = trie;
     }
 
     public int load(String... strings) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        int count = 0;
+        for (String line: strings) {
+            System.out.println(line);
+            for (String word: line.split(" ")) {
+                System.out.println(word);
+                if (word.length() > 2) {
+                    trie.add(new Tuple(word, word.length()));
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public boolean contains(String word) {
