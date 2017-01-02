@@ -3,6 +3,8 @@ package ua.edu.ucu.autocomplete;
 import ua.edu.ucu.tries.Trie;
 import ua.edu.ucu.tries.Tuple;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author andrii
@@ -38,12 +40,24 @@ public class PrefixMatches {
     }
 
     public Iterable<String> wordsWithPrefix(String pref) {
-        return trie.wordsWithPrefix(pref);
+        if (pref.length() > 2) {
+            return trie.wordsWithPrefix(pref);
+        }else{
+            return null;
+        }
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        Iterable<String> stringIterable = trie.wordsWithPrefix(pref);
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        for (String list: stringIterable) {
+            if(k > list.length() - pref.length()){
+                stringArrayList.add(list);
+            }
+        }return stringArrayList;
     }
+
+
 
     public int size() {
         return trie.size();

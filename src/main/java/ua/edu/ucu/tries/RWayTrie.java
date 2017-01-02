@@ -1,14 +1,15 @@
 package ua.edu.ucu.tries;
-
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 
 public class RWayTrie  implements Trie {
 
-    private Node root;      // root of trie
+    /**
+     * This is an implementation of RW-Trie
+     */
+
+    private Node root;
     private int n;
 
     public RWayTrie() {
@@ -17,18 +18,18 @@ public class RWayTrie  implements Trie {
     @Override
     public void add(Tuple t) {
         /**
-         * Public method which call real method add from the root.
+         * Public method which call overridden method add from the root.
          */
         root = add(root, t.term, t.weight, 0);
     }
     private Node add(Node x, String key, int val, int d) {
         /**
-         * If we do not have node which corresponds to the element we create new instance of class Node.
-         * When length of key is equal to the d (which means that we iterate as many times as number of value),
-         * it means that we put all word, so we increase value and mark them corresponding node.
-         * Also we increase. We need it to define a size.
-         * When length of key isn't equal to the d we take letter of key which corresponds to d (for example
-         * if we have word 'Drown' and d = 1, we take letter r) and recursively call method add with this letter.
+          If we do not have node which corresponds to the element we create new instance of class Node.
+          When length of key is equal to the d (which means that we iterate as many times as number of value),
+          it means that we put all word, so we increase value and mark them corresponding node.
+          Also we increase. We need it to define a size.
+          When length of key isn't equal to the d we take letter of key which corresponds to d (for example
+          if we have word 'Drown' and d = 1, we take letter r) and recursively call method add with this letter.
          */
         //System.out.println(x);
         if (x == null) x = new Node();
@@ -49,26 +50,33 @@ public class RWayTrie  implements Trie {
 
     @Override
     public boolean contains(String word) {
-        //System.out.println("FFF");
+        /**
+         * This method calls method get and if get isn't equal to none it returns true, otherwise
+         * it returns false.
+        */
         return get(word) != null;
     }
 
     public Object get(String key) {
+        /**
+         * Public method which call overridden method get and return value of x.
+         */
         Node x = get(root, key, 0);
         if (x == null) return null;
         return x.val;
     }
     private Node get(Node x, String key, int d) {
         /**
-         * Created by jlaba on 01.01.2017.
+         * When length of key is equal to the d (which means that we iterate as many times as number of value),
+         * we return x (node). As it follows, we found key. When length of key isn't equal to the d we take letter of
+         * key which corresponds to d (for example if we have word 'Drown' and d = 1, we take letter r) and
+         * recursively call method get with this letter.
          */
         if (x == null) return null;
         if (d == key.length()) return x;
         char c = key.charAt(d);
         return get(x.next[c], key, d+1);
     }
-
-
 
     @Override
     public boolean delete(String word) {
