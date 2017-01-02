@@ -112,16 +112,14 @@ public class RWayTrie  implements Trie {
     }
     private void collect(Node x, String tmpWord, ArrayList<String> resList) {
         if (x != null) {
+            if (x.val != null && x.val > 0){
+                resList.add(tmpWord);
+            }
             for (int i = 0; i < Node.R; i++) {
-                collect(x.next[i], tmpWord + (char)i, resList);
-                if (x.val != null && x.val > 0){
-                    resList.add(tmpWord);
-                    break;
-                }
+                collect(x.next[i], tmpWord + (char) (i), resList);
             }
         }
     }
-
 
     @Override
     public int size() {

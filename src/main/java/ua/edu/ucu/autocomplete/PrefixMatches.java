@@ -16,12 +16,12 @@ public class PrefixMatches {
 
     public int load(String... strings) {
         int count = 0;
-        for (String line: strings) {
-            System.out.println(line);
-            for (String word: line.split(" ")) {
-                System.out.println(word);
-                if (word.length() > 2) {
-                    trie.add(new Tuple(word, word.length()));
+        for (String list: strings) {
+
+            for (String string: list.split(" ")) {
+
+                if (string.length() > 2) {
+                    trie.add(new Tuple(string, string.length()));
                     count++;
                 }
             }
@@ -30,15 +30,15 @@ public class PrefixMatches {
     }
 
     public boolean contains(String word) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.contains(word);
     }
 
     public boolean delete(String word) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.delete(word);
     }
 
     public Iterable<String> wordsWithPrefix(String pref) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        return trie.wordsWithPrefix(pref);
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
@@ -46,6 +46,6 @@ public class PrefixMatches {
     }
 
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.size();
     }
 }

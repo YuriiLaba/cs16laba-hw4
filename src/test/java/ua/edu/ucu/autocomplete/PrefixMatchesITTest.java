@@ -26,6 +26,7 @@ public class PrefixMatchesITTest {
         String pref = "ab";
 
         Iterable<String> result = pm.wordsWithPrefix(pref);
+        System.out.println(result);
 
         String[] expResult = {"abc", "abce", "abcd", "abcde", "abcdef"};
 
