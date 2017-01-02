@@ -1,50 +1,71 @@
 package ua.edu.ucu.tries;
 
-public class RWayTrie <Value> implements Trie {
-    private static final int R = 256;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class RWayTrie  implements Trie {
+
     private Node root;      // root of trie
     private int n;
-
-    private static class Node {
-        private Object val;
-        private Node[] next = new Node[R];
-    }
 
     public RWayTrie() {
     }
 
     @Override
     public void add(Tuple t) {
+        /**
+         * public method which call real method add from the root.
+         */
         root = add(root, t.term, t.weight, 0);
     }
     private Node add(Node x, String key, int val, int d) {
+        /**
+         * If we do not have node which corresponds to the element we create new instance of class Node.
+         * When length of key is equal to the d (which means that we iterate as many times as number of value),
+         * it means that we put all word, so we increase value and mark them corresponding node.
+         * When length of key isn't equal to the d we take letter of key which corresponds to d (for example
+         * if we have word 'Drown' and d = 1, we take letter r) and recursively call method add with this letter.
+         */
+        //System.out.println(x);
         if (x == null) x = new Node();
         if (d == key.length()) {
-            if (x.val == null) n++;
-            x.val = val;
-            return x;
+            if (x.val == null){
+                val ++;
+                x.val = val;
+                return x;
+            }
         }
         char c = key.charAt(d);
         x.next[c] = add(x.next[c], key, val, d+1);
+        //System.out.println(Arrays.toString(x.next));
         return x;
     }
 
+
     @Override
     public boolean contains(String word) {
-        System.out.println("FFF");
+        //System.out.println("FFF");
         return get(word) != null;
     }
+
     public Object get(String key) {
         Node x = get(root, key, 0);
         if (x == null) return null;
         return x.val;
     }
     private Node get(Node x, String key, int d) {
+        /**
+         * Created by jlaba on 01.01.2017.
+         */
         if (x == null) return null;
         if (d == key.length()) return x;
         char c = key.charAt(d);
         return get(x.next[c], key, d+1);
     }
+
 
 
     @Override
@@ -65,7 +86,7 @@ public class RWayTrie <Value> implements Trie {
 
         // remove subtrie rooted at x if it is completely empty
         if (x.val != null) return x;
-        for (int c = 0; c < R; c++)
+        for (int c = 0; c < Node.R; c++)
             if (x.next[c] != null)
                 return x;
         return null;
@@ -73,8 +94,24 @@ public class RWayTrie <Value> implements Trie {
 
     @Override
     public Iterable<String> words() {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        ArrayList<String> wordsList = new ArrayList<String>();
+        collect(root, "", wordsList);
+        return wordsList;
     }
+
+    private void collect(Node x, String tmpWord, ArrayList<String> resList) {
+        if (x != null) {
+            for (int i = 0; i < Node.R; i++) {
+                collect(x.next[i], tmpWord + (char) (i), resList);
+                if (x.val != null && x.val > 0){
+                    resList.add(tmpWord);
+                    break;
+                }
+            }
+        }
+    }
+
 
     @Override
     public Iterable<String> wordsWithPrefix(String s) {
@@ -85,6 +122,7 @@ public class RWayTrie <Value> implements Trie {
     public int size() {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
+
 
 
 }
