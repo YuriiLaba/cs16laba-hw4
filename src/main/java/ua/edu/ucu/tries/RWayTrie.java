@@ -1,4 +1,6 @@
 package ua.edu.ucu.tries;
+import ua.edu.ucu.autocomplete.Queue;
+
 import java.util.ArrayList;
 
 
@@ -105,7 +107,7 @@ public class RWayTrie  implements Trie {
     @Override
     public Iterable<String> words() {
 
-        ArrayList<String> wordsList = new ArrayList<String>();
+        Queue<String> wordsList = new Queue<String>();
         collect(root, "", wordsList);
         return wordsList;
     }
@@ -113,15 +115,15 @@ public class RWayTrie  implements Trie {
 
     @Override
     public Iterable<String> wordsWithPrefix(String s) {
-        ArrayList<String> wordsList = new ArrayList<String>();
+        Queue<String> wordsList = new Queue<String>();
 
         collect(get(root, s, 0), s, wordsList);
         return wordsList;
     }
-    private void collect(Node x, String tmpWord, ArrayList<String> resList) {
+    private void collect(Node x, String tmpWord, Queue<String> resList) {
         if (x != null) {
             if (x.val != null && x.val > 0){
-                resList.add(tmpWord);
+                resList.enqueue(tmpWord);
             }
             for (int i = 0; i < Node.R; i++) {
                 collect(x.next[i], tmpWord + (char) (i), resList);

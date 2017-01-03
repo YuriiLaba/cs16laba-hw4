@@ -40,11 +40,7 @@ public class PrefixMatches {
     }
 
     public Iterable<String> wordsWithPrefix(String pref) {
-        if (pref.length() > 2) {
             return trie.wordsWithPrefix(pref);
-        }else{
-            return null;
-        }
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
