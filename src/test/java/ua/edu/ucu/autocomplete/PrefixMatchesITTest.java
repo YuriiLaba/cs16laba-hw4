@@ -96,5 +96,35 @@ public class PrefixMatchesITTest {
 
         assertEquals(result, expResult);
     }
+    @Test
+    public void testContains_True() {
+
+        boolean result = pm.contains("abc");
+
+        boolean expResult = true;
+
+        assertEquals(result, expResult);
+    }
+    @Test
+    public void testContains_False() {
+
+        boolean result = pm.contains("shadow");
+
+        boolean expResult = false;
+
+        assertEquals(result, expResult);
+    }
+
+    @Test
+    public void testDelete_True() {
+
+        boolean result = pm.delete("abc");
+
+        boolean expResult = true;
+
+        assertEquals(result, expResult);
+    }
+
+    
 
 }
