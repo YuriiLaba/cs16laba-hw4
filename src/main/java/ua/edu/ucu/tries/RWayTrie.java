@@ -107,26 +107,26 @@ public class RWayTrie  implements Trie {
     @Override
     public Iterable<String> words() {
 
-        Queue<String> wordsList = new Queue<String>();
-        collect(root, "", wordsList);
-        return wordsList;
+        Queue<String> queueResult = new Queue<String>();
+        collect(root, "", queueResult);
+        return queueResult;
     }
 
 
     @Override
     public Iterable<String> wordsWithPrefix(String s) {
-        Queue<String> wordsList = new Queue<String>();
+        Queue<String> queueResult = new Queue<String>();
 
-        collect(get(root, s, 0), s, wordsList);
-        return wordsList;
+        collect(get(root, s, 0), s, queueResult);
+        return queueResult;
     }
-    private void collect(Node x, String tmpWord, Queue<String> resList) {
+    private void collect(Node x, String word, Queue<String> queueResult) {
         if (x != null) {
             if (x.val != null && x.val > 0){
-                resList.enqueue(tmpWord);
+                queueResult.enqueue(word);
             }
             for (int i = 0; i < Node.R; i++) {
-                collect(x.next[i], tmpWord + (char) (i), resList);
+                collect(x.next[i], word + (char) (i), queueResult);
             }
         }
     }

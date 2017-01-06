@@ -45,10 +45,10 @@ public class PrefixMatches {
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
         Iterable<String> stringIterable = trie.wordsWithPrefix(pref);
-        ArrayList<String> stringArrayList = new ArrayList<>();
+        Queue<String> stringArrayList = new Queue<>();
         for (String list: stringIterable) {
             if(k > list.length() - pref.length()){
-                stringArrayList.add(list);
+                stringArrayList.enqueue(list);
             }
         }return stringArrayList;
     }
