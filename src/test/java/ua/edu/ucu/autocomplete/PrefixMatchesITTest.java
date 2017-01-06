@@ -45,4 +45,56 @@ public class PrefixMatchesITTest {
         assertThat(result, containsInAnyOrder(expResult));
     }
 
+    @Test
+    public void testLoad_WithOneArgument() {
+        String arg = "Shadow";
+
+        int result = pm.load(arg);
+
+        int expResult = 1;
+
+        assertEquals(result, expResult);
+    }
+    @Test
+    public void testLoad_WithFewArgument() {
+        String arg = "Shadow";
+        String arg1 = "Gravedigger";
+
+        int result = pm.load(arg, arg1);
+
+        int expResult = 2;
+
+        assertEquals(result, expResult);
+    }
+    @Test
+    public void testLoad_WithOneArgumentWithSpace() {
+        String arg = "Shadow Moses";
+
+        int result = pm.load(arg);
+
+        int expResult = 2;
+
+        assertEquals(result, expResult);
+    }
+    @Test
+    public void testLoad_WithOneListArgument() {
+        String[] arg = new String[]{"Shadow"};
+
+        int result = pm.load(arg);
+
+        int expResult = 1;
+
+        assertEquals(result, expResult);
+    }
+    @Test
+    public void testLoad_WithFewListArgument() {
+        String[] arg = new String[]{"Shadow Moses"};
+
+        int result = pm.load(arg);
+
+        int expResult = 2;
+
+        assertEquals(result, expResult);
+    }
+
 }
