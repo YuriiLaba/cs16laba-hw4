@@ -124,7 +124,16 @@ public class PrefixMatchesITTest {
 
         assertEquals(result, expResult);
     }
+    @Test
+    public void testSize() {
 
-    
+        int result = pm.size();
+
+        int expResult = 5;
+
+        assertEquals(result, expResult);
+    }
+
+
 
 }
